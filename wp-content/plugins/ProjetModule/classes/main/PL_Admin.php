@@ -12,10 +12,10 @@ class PL_Admin{
     }
 
     public function ajout_js(){
-        wp_register_script('insset', plugins_url(PL_PLUGIN_NAME .'/assets/js/PL_Admin.js'), array('jquery-new'), PL_VERSION, true);
-        wp_enqueue_script('insset');
+        wp_register_script('PL', plugins_url(PL_PLUGIN_NAME .'/assets/js/PL_Admin.js'), array('jquery-new'), PL_VERSION, true);
+        wp_enqueue_script('PL');
 
-        wp_localize_script('insset', 'inssetscript', array(
+        wp_localize_script('PL', 'PLscript', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'security' => wp_create_nonce('ajax_nonce_security')
         ));
@@ -57,10 +57,10 @@ class PL_Admin{
 
         wp_enqueue_style('admin-style', plugins_url(PL_PLUGIN_NAME).'/assets/css/PL_Admin.css');
 
-        wp_register_script('inssetB', plugins_url(PL_PLUGIN_NAME .'/assets/js/PL_Admin.js', PL_VERSION, true));
-        wp_enqueue_script('inssetB');        
+        wp_register_script('PL', plugins_url(PL_PLUGIN_NAME .'/assets/js/PL_Admin.js', PL_VERSION, true));
+        wp_enqueue_script('PL');        
         
-        wp_localize_script('inssetB', 'inssetscript', array(
+        wp_localize_script('PL', 'inssetscript', array(
             'ajax_url' => admin_url('admin-ajax.php'), 
             'security' => wp_create_nonce('ajax_nonce_security')
         ));        
@@ -71,14 +71,14 @@ class PL_Admin{
 
     public function yeptrackchoicesfall_settings() {
 
-        $PL_List = new PL_view();
-        $PL_List->display();
+        $PL_ListPays = new PL_View_Pays();
+        $PL_ListPays->display();
     }
 
     public function yeptrackchoicesfall_import_form() {
 
-        $PL_Config = new PL_view_config();
-        $PL_Config->display();
+        $PL_View = new PL_View();
+        $PL_View->display();
     }
 
 }

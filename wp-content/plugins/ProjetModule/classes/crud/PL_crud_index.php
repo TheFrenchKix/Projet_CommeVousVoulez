@@ -48,11 +48,11 @@ class pl_crud_index {
         }
     }
 
-    static public function getConfig(){
+    static public function getPays(){
         
         global $wpdb;
 
-        $db = $wpdb->prefix . PL_BASENAME .'_config';
+        $db = $wpdb->prefix . PL_BASENAME .'_pays';
 
         $sql = "SELECT * FROM $db";
 
@@ -61,11 +61,24 @@ class pl_crud_index {
         return $result;
     }
 
-    static public function setConfig($id, $valeur){
+    static public function updateMajeur($id, $valeur){
 
         global $wpdb;
 
-        if($wpdb->update($wpdb->prefix .PL_BASENAME."_config", array('valeur' => $valeur), ['id' => $id])){
+        if($wpdb->update($wpdb->prefix .PL_BASENAME."_pays", array('majeur' => $valeur), ['id' => $id])){
+
+            return "Mise à jour faite !";
+
+        }
+
+        return "Error";
+    }
+
+    static public function updateNote($id, $valeur){
+
+        global $wpdb;
+
+        if($wpdb->update($wpdb->prefix .PL_BASENAME."_pays", array('note' => $valeur), ['id' => $id])){
 
             return "Mise à jour faite !";
 

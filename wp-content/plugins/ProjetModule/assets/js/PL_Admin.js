@@ -33,7 +33,7 @@ jQuery( document ).ready(function() {
         return;
     });
 
-    jQuery('#btnUpdate').on('click', function(e) {
+    jQuery('.slider').on('change', function(e) {
 
         let formData = new FormData();
         
@@ -41,16 +41,12 @@ jQuery( document ).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         
-        formData.append('action', 'update');
+        formData.append('action', 'updatenote');
         formData.append('security', inssetscript.security);
-        
-        jQuery('#pl_param_update input').each( function() {
-        
-            let id = jQuery(this).attr('id');
-            let value = jQuery(this).val();
-            formData.append(id, value);
-    
-        });
+
+        let id = jQuery(this).attr('id');
+        let value = jQuery(this).val();
+        formData.append(id, value);
     
         // Requête ajax qui utilise les données de la variable 'formData'
         jQuery.ajax({
@@ -67,6 +63,47 @@ jQuery( document ).ready(function() {
     
             success: function(rs) {
                 jQuery('.update-message').removeClass('hide');
+                jQuery(this).fadeOut("slow")
+                jQuery(this).fadeIn("slow")
+                return false;
+            },
+    
+        });
+        
+    });
+
+    jQuery('.majeur').on('change', function(e) {
+
+        let formData = new FormData();
+        
+        // Empêche le reload de la page
+        e.stopPropagation();
+        e.preventDefault();
+        
+        formData.append('action', 'updatemajeur');
+        formData.append('security', inssetscript.security);
+
+        let id = jQuery(this).attr('id');
+        let value = jQuery(this).val();
+        formData.append(id, value);
+    
+        // Requête ajax qui utilise les données de la variable 'formData'
+        jQuery.ajax({
+    
+            url: ajaxurl,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+    
+            success: function(rs) {
+                jQuery('.update-message').removeClass('hide');
+                jQuery(this).fadeOut("slow")
+                jQuery(this).fadeIn("slow")
                 return false;
             },
     

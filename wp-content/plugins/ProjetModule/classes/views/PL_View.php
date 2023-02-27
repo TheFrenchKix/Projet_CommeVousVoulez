@@ -12,7 +12,7 @@ class PL_View {
     public function display() {
 
         global $wpdb;
-        $WP_PL_List = new pl_list('`'.$wpdb->prefix . PL_BASENAME .'_users`');
+        $WP_PL_ListPays = new PL_listPays('`'.$wpdb->prefix . PL_BASENAME .'_users_pays`');
 
         $tempscreen = get_current_screen();
         $this->_screen = $tempscreen->base;
@@ -33,8 +33,8 @@ class PL_View {
                             $paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
                             printf('<input type="hidden" name="page" value="%s" />', $page);
                             printf('<input type="hidden" name="paged" value="%d" />', $paged);
-                            $WP_PL_List->prepare_items();
-                            $WP_PL_List->display();
+                            $WP_PL_ListPays->prepare_items();
+                            $WP_PL_ListPays->display();
                         ?>
                     </form>
                 </div>
