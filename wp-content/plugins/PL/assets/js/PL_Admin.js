@@ -24,7 +24,7 @@ jQuery( document ).ready(function() {
             type: 'post',
             success: function(response) {
                 _this.closest('tr').fadeOut('slow');
-                jQuery('.delete-confirmation').removeClass('hide');
+                jQuery('.delete-confirmation').removeClass('hidden');
                 console.log(response);
                 return false;
             }
@@ -46,7 +46,12 @@ jQuery( document ).ready(function() {
 
         let id = jQuery(this).attr('id');
         let value = jQuery(this).val();
-        formData.append(id, value);
+        formData.append('note', value);
+        formData.append('id', id);
+
+        jQuery('.valNote-'+id).html(value);
+
+        let thisItem = jQuery(this).closest('tr');
     
         // Requête ajax qui utilise les données de la variable 'formData'
         jQuery.ajax({
@@ -62,9 +67,10 @@ jQuery( document ).ready(function() {
             type: 'post',
     
             success: function(rs) {
-                jQuery('.update-message').removeClass('hide');
-                jQuery(this).fadeOut("slow")
-                jQuery(this).fadeIn("slow")
+
+                thisItem.fadeOut();
+                thisItem.fadeIn();
+
                 return false;
             },
     
@@ -84,8 +90,15 @@ jQuery( document ).ready(function() {
         formData.append('security', inssetscript.security);
 
         let id = jQuery(this).attr('id');
-        let value = jQuery(this).val();
-        formData.append(id, value);
+        let value = 0;
+        if (jQuery(this).is(':checked'))
+        {
+            value = 1
+        }else { value = 0 }
+        formData.append('majeur', value);
+        formData.append('id', id);
+
+        let thisItem = jQuery(this).closest('tr');
     
         // Requête ajax qui utilise les données de la variable 'formData'
         jQuery.ajax({
@@ -101,9 +114,8 @@ jQuery( document ).ready(function() {
             type: 'post',
     
             success: function(rs) {
-                jQuery('.update-message').removeClass('hide');
-                jQuery(this).fadeOut("slow")
-                jQuery(this).fadeIn("slow")
+                thisItem.fadeOut();
+                thisItem.fadeIn();
                 return false;
             },
     

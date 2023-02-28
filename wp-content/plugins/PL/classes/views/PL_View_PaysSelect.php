@@ -1,6 +1,6 @@
 <?php
 
-class PL_View {
+class PL_View_PaysSelect {
 
     public function __construct() {
 
@@ -12,12 +12,13 @@ class PL_View {
     public function display() {
 
         global $wpdb;
-        $WP_PL_ListPays = new PL_listPays('`'.$wpdb->prefix . PL_BASENAME .'_users_pays`');
+        $WP_PL_ListPays = new PL_listPaysSelect('`'.$wpdb->prefix . PL_BASENAME .'_users_pays`');
 
         $tempscreen = get_current_screen();
         $this->_screen = $tempscreen->base;
 
         $toolbar = $this->toolbar();
+        
         ?>
             <div class="wrap">
                 <h1 class="wp-heading-inline"><?php print get_admin_page_title(); ?></h1>

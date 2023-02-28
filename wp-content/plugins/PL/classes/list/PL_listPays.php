@@ -71,7 +71,7 @@ class pl_listPays extends WP_List_Table {
     public function get_sortable_columns($sortable = array()) {
         global $wpdb;
         
-        $db_pays = $wpdb->prefix . PL_BASENAME .'_users_pays';
+        $db_pays = $wpdb->prefix . PL_BASENAME .'_pays';
 
         $sql = "SELECT * FROM $db_pays";
         $result = $wpdb->get_results($sql, 'ARRAY_A');
@@ -90,7 +90,7 @@ class pl_listPays extends WP_List_Table {
 
         global $wpdb;
 
-        $db_pays = $wpdb->prefix . PL_BASENAME .'_users_pays';
+        $db_pays = $wpdb->prefix . PL_BASENAME .'_pays';
 
 		// $sql = 'SELECT * FROM `'. $db_first . "WHERE 1";
 		// écrivez toute votre requête croisée pour afficher id + nom + prenom + email + date
@@ -110,7 +110,55 @@ class pl_listPays extends WP_List_Table {
 
     public function column_default( $item, $column_name ) {
 
+        if (preg_match('/note/i', $column_name)){
+            return self::sliderNote($item['note'],$item['id']);
+        }
+
+        if (preg_match('/majeur/i', $column_name)){
+            return self::checkMajeur($item['majeur'],$item['id']);
+        }
+
         return @$item[$column_name];
+
+    }
+
+    private function get_delete($id){
+        return sprintf(
+            "<button data-id='%d' class='deleted'></button>", 
+            $id
+            );
+    }
+
+    private function sliderNote($value,$id){
+        return sprintf(
+            "<div><input type='range' min='0' max='5' value='%d' class='slider' id='%d'><span class='valNote-%d' style='padding-left: 10px'>%d</span></div>",
+            $value,
+            $id,
+            $id,
+            $value
+            );
+    }
+
+    private function checkMajeur($value,$id){
+
+        if($value != 0)
+        {
+            
+            return sprintf(
+                "<input id='%d' type='checkbox' class='majeur' value='%d' checked/>",
+                $id,
+                $value
+                );           
+
+        }else{
+
+            return sprintf(
+                "<input id='%d' type='checkbox' class='majeur' value='%d'/>",
+                $id,
+                $value
+                );
+
+        }
 
     }
 

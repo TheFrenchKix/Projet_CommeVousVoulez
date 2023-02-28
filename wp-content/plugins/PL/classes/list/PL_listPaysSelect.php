@@ -5,7 +5,7 @@ if (!class_exists('WP_List_Table')) {
     require_once(ABSPATH .'wp-admin/includes/class-wp-list-table.php');
 }
 
-class pl_list extends WP_List_Table {
+class pl_listPaysSelect extends WP_List_Table {
 
     public $_tablename = '';
     public $_program;

@@ -44,7 +44,7 @@ class PL_Admin{
         add_submenu_page(
             'yeptrackchoicesfall_settings',
             __('Settings'),
-            __('Parametres'),
+            __('Selection Pays'),
             'administrator',
             'yeptrackchoicesfall_import_form',
             array($this, 'yeptrackchoicesfall_import_form')
@@ -77,8 +77,8 @@ class PL_Admin{
 
     public function yeptrackchoicesfall_import_form() {
 
-        $PL_View = new PL_View();
-        $PL_View->display();
+        $PL_PaysSelect = new PL_View_PaysSelect();
+        $PL_PaysSelect->display();
     }
 
 }

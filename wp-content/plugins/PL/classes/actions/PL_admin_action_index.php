@@ -48,13 +48,7 @@ class pl_admin_action_index{
             exit;
         }
 
-        foreach($_REQUEST as $key => $valeur){
-            if(!in_array($key, ['security','action'])){
-                $$key = (string) trim($valeur);
-                $crud->setConfig($key, $valeur);
-            }
-        }
-
+        $crud->UpdateNote($_REQUEST['id'], $_REQUEST['note']);
 
         exit;
     }
@@ -67,13 +61,9 @@ class pl_admin_action_index{
             exit;
         }
 
-        foreach($_REQUEST as $key => $valeur){
-            if(!in_array($key, ['security','action'])){
-                $$key = (string) trim($valeur);
-                $crud->setConfig($key, $valeur);
-            }
-        }
+        var_dump($_REQUEST);
 
+        $crud->UpdateMajeur($_REQUEST['id'], $_REQUEST['majeur']);
 
         exit;
     }
