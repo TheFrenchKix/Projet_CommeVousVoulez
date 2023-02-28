@@ -47,6 +47,7 @@ class PL_Install {
                 `codeiso` VARCHAR(255) NULL,
                 `note` INT(11) NULL,
                 `majeur` BOOLEAN NULL,
+                `isactive` BOOLEAN NULL
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB '. $charset_collate;
             dbDelta($sql_pays);

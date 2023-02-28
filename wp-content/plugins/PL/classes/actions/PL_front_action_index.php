@@ -1,7 +1,7 @@
 <?php
 
-add_action('wp_ajax_insset', array('pl_front_action_index', 'DoJob'));
-add_action('wp_ajax_nopriv_insset', array('pl_front_action_index', 'DoJob'));
+add_action('wp_ajax_pl', array('pl_front_action_index', 'DoJob'));
+add_action('wp_ajax_nopriv_pl', array('pl_front_action_index', 'DoJob'));
 
 class pl_front_action_index {
 

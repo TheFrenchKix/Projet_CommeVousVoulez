@@ -122,4 +122,38 @@ jQuery( document ).ready(function() {
         });
         
     });
+
+    jQuery('#btnUpdateCountry').on('click', function(e) {
+    
+        e.stopPropagation();
+        e.preventDefault();
+
+        var _this = jQuery('#countries');
+        var results = _this.val();
+        
+        let formData = new FormData();
+        formData.append('action', 'activecountries');
+        formData.append('security', inssetscript.security);
+        formData.append('countries', results);
+
+        console.log(results)
+
+        jQuery.ajax({
+            url: ajaxurl,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+            success: function(response) {
+                jQuery('.confirm-message').removeClass('hidden');
+                return false;
+            }
+        });
+
+        return;
+    });
 });

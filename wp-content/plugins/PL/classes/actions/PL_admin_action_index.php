@@ -4,6 +4,7 @@ add_action('wp_ajax_remove', array('pl_admin_action_index', 'RemoveJob'));
 add_action('wp_ajax_update', array('pl_admin_action_index', 'Update'));
 add_action('wp_ajax_updatemajeur', array('pl_admin_action_index', 'UpdateMajeur'));
 add_action('wp_ajax_updatenote', array('pl_admin_action_index', 'UpdateNote'));
+add_action('wp_ajax_activecountries', array('pl_admin_action_index', 'ActiveCountries'));
 
 class pl_admin_action_index{
 
@@ -61,9 +62,28 @@ class pl_admin_action_index{
             exit;
         }
 
-        var_dump($_REQUEST);
-
         $crud->UpdateMajeur($_REQUEST['id'], $_REQUEST['majeur']);
+
+        exit;
+    }
+
+    static public function ActiveCountries(){
+        check_ajax_referer('ajax_nonce_security', 'security');
+        $crud = new pl_crud_index();
+
+        if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
+            exit;
+        }
+        
+        $crud->resetActiveCountries();
+
+        $CountriesID = explode(",", $_REQUEST['countries']);
+
+        foreach($CountriesID as $data){
+
+            $crud->updateActiveCountries($data);
+
+        }
 
         exit;
     }

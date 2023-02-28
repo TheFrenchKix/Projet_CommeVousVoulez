@@ -43,11 +43,20 @@ class PL_Admin{
 
         add_submenu_page(
             'yeptrackchoicesfall_settings',
-            __('Settings'),
+            __('Selection'),
             __('Selection Pays'),
             'administrator',
             'yeptrackchoicesfall_import_form',
             array($this, 'yeptrackchoicesfall_import_form')
+        );
+
+        add_submenu_page(
+            'yeptrackchoicesfall_settings',
+            __('Utilisateurs'),
+            __('Liste Utilisateurs'),
+            'administrator',
+            'yeptrackchoicesfall_utilisateurs',
+            array($this, 'yeptrackchoicesfall_utilisateurs')
         );
 
         add_action('admin_enqueue_scripts', array($this, 'assets'), 999);
@@ -68,7 +77,6 @@ class PL_Admin{
 
     }
 
-
     public function yeptrackchoicesfall_settings() {
 
         $PL_ListPays = new PL_View_Pays();
@@ -79,6 +87,12 @@ class PL_Admin{
 
         $PL_PaysSelect = new PL_View_PaysSelect();
         $PL_PaysSelect->display();
+    }
+
+    public function yeptrackchoicesfall_utilisateurs() {
+
+        $PL_Utilisateurs = new PL_View_Utilisateurs();
+        $PL_Utilisateurs->display();
     }
 
 }

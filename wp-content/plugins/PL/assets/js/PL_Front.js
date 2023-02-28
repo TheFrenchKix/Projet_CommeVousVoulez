@@ -4,6 +4,7 @@ jQuery( document ).ready(function() {
         e.stopPropagation();
         e.preventDefault();
 
+        let formData = new FormData();
 
         jQuery('#formulaire').find('input, textarea, select').each( function(i){
             let id = jQuery(this).attr('id');
@@ -11,12 +12,14 @@ jQuery( document ).ready(function() {
                 formData.append(id, jQuery(this).val());
             }
         });
-    
+
+        formData.append('action', 'pl');
+        formData.append('security', PLscript.security);
 
         jQuery("#loading").show();
 
         jQuery.ajax({
-            url: inssetscript.ajax_url,
+            url: PLscript.ajax_url,
             xhrFields: {
                 withCredentials: true
             },
