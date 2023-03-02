@@ -142,8 +142,8 @@ class pl_crud_index {
 
         global $wpdb;
 
-        $db_first = $wpdb->prefix . INSSET_BASENAME .'_users';
-        $db_second = $wpdb->prefix . INSSET_BASENAME .'_users_data';
+        $db_first = $wpdb->prefix . PL_BASENAME .'_users';
+        $db_second = $wpdb->prefix . PL_BASENAME .'_users_data';
 
         $sql_data =
         "SELECT A.*, 

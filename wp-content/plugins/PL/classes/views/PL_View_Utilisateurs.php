@@ -5,12 +5,10 @@ class PL_View_Utilisateurs {
 public function display() {
     
     global $wpdb;
-    $WP_PL_ListPays = new PL_listPays('`'.$wpdb->prefix . PL_BASENAME .'_users_pays`');
+    $WP_PL_ListUsers = new PL_listUsers('`'.$wpdb->prefix . PL_BASENAME .'_users_pays`');
 
     $tempscreen = get_current_screen();
     $this->_screen = $tempscreen->base;
-
-    $pays = pl_crud_index::getPays();
 
     ?>
     <div class="wrap" id="pl_param_update">
@@ -28,8 +26,8 @@ public function display() {
                         $paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
                         printf('<input type="hidden" name="page" value="%s" />', $page);
                         printf('<input type="hidden" name="paged" value="%d" />', $paged);
-                        $WP_PL_ListPays->prepare_items();
-                        $WP_PL_ListPays->display();
+                        $WP_PL_ListUsers->prepare_items();
+                        $WP_PL_ListUsers->display();
                     ?>
                 </form>
             </div>

@@ -5,21 +5,18 @@ add_shortcode('FORMULAIRE', array('PL_shortcode_formulaire', 'display'));
 class PL_shortcode_formulaire {
 
     static function display($atts) {
-        $PL_Helper_Index = new PL_Helper_Index();
-        $isOpen = $PL_Helper_Index->isOpen();
-
-        if(!$isOpen){
-            return __("Module Ferme");
-        }
 
         return "
         <form id=\"formulaire\" method=\"POST\">
             <fieldset>
                 <legend> <?php_e('Your coords')?> </legend>
-                    <input type=\"text\" id=\"firstname\" name=\"firstname\" placeholder=\"First Name\">
-                    <input type=\"text\" id=\"lastname\" name=\"lastname\" placeholder=\"Last Name\">
-                    <input type=\"text\" id=\"email\" name=\"email\" placeholder=\"Email\">
-                    <input type=\"text\" id=\"code_postal\" name=\"code_postal\" placeholder=\"Code Postal\">
+                    <input type=\"text\" id=\"nom\" name=\"nom\" placeholder=\"Nom\" required>
+                    <input type=\"text\" id=\"prenom\" name=\"prenom\" placeholder=\"Prenom\">
+                    <select id=\"sexe\" name=\"sexe\" style=\"display: block\">
+                        <option value=\"H\">H</option>
+                        <option value=\"F\">F</option>
+                    </select>
+                    <input type=\"date\" id=\"dateNaiss\" name=\"dateNaiss\" placeholder=\"Date de Naissance\">
                 </fieldset>
             <button id=\"submit\" type=\"submit\">Submit</button>
         </form>

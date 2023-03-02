@@ -28,8 +28,6 @@ class PL_Admin{
             'administrator',
             'yeptrackchoicesfall_settings',
             array($this, 'yeptrackchoicesfall_settings'),
-            // 'images/marker.png',
-            // 1000
         );
 
         add_submenu_page(

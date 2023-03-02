@@ -2,9 +2,18 @@
 
 class PL_Helper_Index{
     
-    public function isOpen(){
+    public function SexeToGender($sexe){
 
-        return "Coucou";
+        if ($sexe == "H")
+        {
+            $civilite = "Mr.";
+        }
+        else if($sexe == "F")
+        {
+            $civilite = "Mme.";
+        }
+
+        return $civilite;
 
     }
 }
