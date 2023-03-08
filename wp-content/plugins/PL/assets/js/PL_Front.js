@@ -30,6 +30,7 @@ jQuery( document ).ready(function() {
             type: 'post',
             success: function(rs, textStatus, jqXHR) {
                 jQuery("#loading").hide();
+                window.location.replace("choix-voyage-step-select");
                 return false;                
             }
         })

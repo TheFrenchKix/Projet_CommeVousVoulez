@@ -11,12 +11,13 @@ class PL_shortcode_formulaire {
             <fieldset>
                 <legend> <?php_e('Your coords')?> </legend>
                     <input type=\"text\" id=\"nom\" name=\"nom\" placeholder=\"Nom\" required>
-                    <input type=\"text\" id=\"prenom\" name=\"prenom\" placeholder=\"Prenom\">
-                    <select id=\"sexe\" name=\"sexe\" style=\"display: block\">
+                    <input type=\"text\" id=\"prenom\" name=\"prenom\" placeholder=\"Prenom\" required>
+                    <input type=\"text\" id=\"email\" name=\"email\" placeholder=\"Email\" required>
+                    <select id=\"sexe\" name=\"sexe\" style=\"display: block\" required>
                         <option value=\"H\">H</option>
                         <option value=\"F\">F</option>
                     </select>
-                    <input type=\"date\" id=\"dateNaiss\" name=\"dateNaiss\" placeholder=\"Date de Naissance\">
+                    <input type=\"date\" id=\"dateNaiss\" name=\"dateNaiss\" placeholder=\"Date de Naissance\" required>
                 </fieldset>
             <button id=\"submit\" type=\"submit\">Submit</button>
         </form>
