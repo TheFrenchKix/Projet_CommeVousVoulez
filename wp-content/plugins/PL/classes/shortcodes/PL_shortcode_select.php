@@ -10,7 +10,7 @@ class PL_shortcode_select {
 
         $db = $wpdb->prefix . PL_BASENAME . '_pays';
 
-        $sql_data = "SELECT id, nom FROM `$db`;";
+        $sql_data = "SELECT id, nom FROM `$db` WHERE isactive = 1;";
 
         $result = $wpdb->get_results($sql_data, 'ARRAY_A');
 
@@ -26,7 +26,7 @@ class PL_shortcode_select {
 
         $html .= "<form id=\"formulaire-select\" method=\"POST\">
             <fieldset>
-                <legend> <?php_e('Your coords')?> </legend>
+                <legend> "._e('Your coords')." </legend>
                     <select id=\"1\" style=\"display: block\" required>
                         <option value='defaut'>--- SELECT ---</option>
                         ". $allCountries ."

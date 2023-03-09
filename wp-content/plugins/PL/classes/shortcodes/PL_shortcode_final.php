@@ -6,22 +6,47 @@ class PL_shortcode_final {
 
     static function display($atts) {
 
-        return "
-        <form id=\"formulaire-final\" method=\"POST\">
+        global $wpdb;
+
+        $db_pays = $wpdb->prefix . PL_BASENAME . '_pays';
+        $db_users_datas = $wpdb->prefix . PL_BASENAME . '_users_data';
+        $db_voeux = $wpdb->prefix . PL_BASENAME . '_users_pays';
+    
+        $sql =
+        "SELECT A.*, 
+        (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='nom' LIMIT 1) AS 'nom',
+        (SELECT C.`nom` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'nompays',
+        (SELECT C.`note` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'notepays'
+        FROM `$db_voeux` A
+        WHERE A.`iduser`=5";
+
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
+
+        // var_dump($result);
+        // die;
+
+        $allNotes = "";
+        
+        foreach ($result as $valeur) {
+
+            $allNotes .= "<li value=" . $valeur['nompays'] . ">" . $valeur['nompays'] . " | Note : ". $valeur['notepays'] ."</li>";
+            $nom = $valeur['nom'];
+        
+        }
+
+        $html = "";
+
+        $html .= "<form id=\"formulaire-final\" method=\"POST\">
             <fieldset>
-                <legend> <?php_e('Your coords')?> </legend>
-                    <h1>Liste de vos choix</h1>
+                    <h3>Vos choix, ". $nom ."</h3>
                     <ul>
-                        <li value='Choix1'>Choix 1</li>
-                        <li value='Choix2'>Choix 2</li>
-                        <li value='Choix3'>Choix 3</li>
-                        <li value='Choix4'>Choix 4</li>
-                        <li value='Choix5'>Choix 5</li>
+                        ". $allNotes ."
                     </ul>
                 </fieldset>
             <button id=\"submit\" type=\"submit\">Submit</button>
-        </form>
-        ";
+        </form>";
+
+        return $html;
     }
 }
 

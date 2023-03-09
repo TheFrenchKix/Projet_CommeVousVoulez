@@ -97,6 +97,13 @@ jQuery( document ).ready(function() {
             let nextid = parseInt(id) + 1;
             jQuery("#" + nextid).removeAttr('disabled');
 
+            for(var i=1; i<=5; i++){
+                if (i != id)
+                {
+                    jQuery("#"+i+" option[value="+val+"]").remove();
+                }
+            }
+
         }else{
 
             let nextid = parseInt(id) + 1;
