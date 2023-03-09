@@ -6,29 +6,52 @@ class PL_shortcode_select {
 
     static function display($atts) {
 
-        return "
-        <form id=\"formulaire-select\" method=\"POST\">
+        global $wpdb;
+
+        $db = $wpdb->prefix . PL_BASENAME . '_pays';
+
+        $sql_data = "SELECT id, nom FROM `$db`;";
+
+        $result = $wpdb->get_results($sql_data, 'ARRAY_A');
+
+        $allCountries = "";
+        
+        foreach ($result as $valeur) {
+
+            $allCountries .= "<option value=" . $valeur['id'] . ">" . $valeur['nom'] . "</option>";
+        
+        }
+
+        $html = "";
+
+        $html .= "<form id=\"formulaire-select\" method=\"POST\">
             <fieldset>
                 <legend> <?php_e('Your coords')?> </legend>
-                    <select id=\"voyage-1\" style=\"display: block\" required>
-                        <option value=\"--- SELECT ---\">--- SELECT ---</option>
+                    <select id=\"1\" style=\"display: block\" required>
+                        <option value='defaut'>--- SELECT ---</option>
+                        ". $allCountries ."
                     </select>
-                    <select id=\"voyage-2\" style=\"display: block\" disabled>
-                        <option value=\"--- SELECT ---\">--- SELECT ---</option>
+                    <select id=\"2\" style=\"display: block\" disabled>
+                        <option value='defaut'>--- SELECT ---</option>
+                        ". $allCountries ."
                     </select>
-                    <select id=\"voyage-3\" style=\"display: block\" disabled>
-                        <option value=\"--- SELECT ---\">--- SELECT ---</option>
+                    <select id=\"3\" style=\"display: block\" disabled>
+                        <option value='defaut'>--- SELECT ---</option>
+                        ". $allCountries ."
                     </select>
-                    <select id=\"voyage-4\" style=\"display: block\" disabled>
-                        <option value=\"--- SELECT ---\">--- SELECT ---</option>
+                    <select id=\"4\" style=\"display: block\" disabled>
+                        <option value='defaut'>--- SELECT ---</option>
+                        ". $allCountries ."
                     </select>
-                    <select id=\"voyage-5\" style=\"display: block\" disabled>
-                        <option value=\"--- SELECT ---\">--- SELECT ---</option>
+                    <select id=\"5\" style=\"display: block\" disabled>
+                        <option value='defaut'>--- SELECT ---</option>
+                        ". $allCountries ."
                     </select>
                 </fieldset>
             <button id=\"submit\" type=\"submit\">Submit</button>
-        </form>
-        ";
+        </form>";
+
+        return $html;
     }
 }
 

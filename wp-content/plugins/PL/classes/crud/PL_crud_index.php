@@ -30,6 +30,23 @@ class pl_crud_index {
         return true;
     }
 
+    public function ajoutChoix($iduser, $idpays){
+
+        global $wpdb;
+
+        $db = $wpdb->prefix . PL_BASENAME .'_users_pays';
+
+        $request = $wpdb->insert($db, array('iduser' => $iduser, 'idpays' => $idpays));
+
+        if($request){
+
+            return "Choix ajouté !";
+
+        }
+
+        return "Error";
+
+    }
 
     public function supp($id){
         global $wpdb;
