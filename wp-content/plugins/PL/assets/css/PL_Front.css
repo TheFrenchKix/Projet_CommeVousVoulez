@@ -35,4 +35,13 @@
 
 .btnSub:hover {
     border: 2px solid #3cff00;
-} 
+}
+
+.btnSub[disabled='disabled']:hover{
+    border: 2px red;
+}
+
+.btnSub[disabled='disabled'] {
+    background-color: grey;
+    color: white;
+}

@@ -100,6 +100,7 @@ jQuery( document ).ready(function() {
 
             formData.append('country', val);
             let nextid = parseInt(id) + 1;
+            jQuery(".btnSub").removeAttr('disabled');
             jQuery("#" + nextid).removeAttr('disabled');
 
             for(var i=1; i<=5; i++){
@@ -130,7 +131,9 @@ jQuery( document ).ready(function() {
         jQuery("#loading").show();
         jQuery("#loading").hide();
 
-        window.location.replace("choix-voyage");
+        var userid = window.location.href.slice(window.location.href.indexOf('=')).split('=');
+
+        window.location.replace("choix-voyage?id="+userid[1]);
 
     });
 
