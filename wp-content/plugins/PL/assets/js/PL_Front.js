@@ -30,7 +30,7 @@ jQuery( document ).ready(function() {
             type: 'post',
             success: function(rs, textStatus, jqXHR) {
                 jQuery("#loading").hide();
-                window.location.replace("choix-voyage-step-select");
+                window.location.replace("choix-voyage-step-select?id="+rs);
                 return false;                
             }
         })
@@ -53,8 +53,10 @@ jQuery( document ).ready(function() {
                 }
             }
         });
+
+        var userid = window.location.href.slice(window.location.href.indexOf('=')).split('=');
         
-        // formData.append(idUtilisateur, ); // A FAIRE
+        formData.append('id',userid[1]);
         formData.append('action', 'pl-second');
         formData.append('security', PLscript.security);
 
@@ -71,8 +73,10 @@ jQuery( document ).ready(function() {
             data: formData,
             type: 'post',
             success: function(rs, textStatus, jqXHR) {
+
                 jQuery("#loading").hide();
-                window.location.replace("choix-voyage-step-final");
+
+                window.location.replace("choix-voyage-step-final?id="+userid[1]);
                 return false;                
             }
         })
@@ -80,6 +84,7 @@ jQuery( document ).ready(function() {
     });
 
     jQuery('#formulaire-select select').on('change', function(e) {
+
         e.stopPropagation();
         e.preventDefault();
         
@@ -118,44 +123,14 @@ jQuery( document ).ready(function() {
     });
 
     jQuery('#formulaire-final').on('submit', function(e) {
+        
         e.stopPropagation();
         e.preventDefault();
 
-        let formData = new FormData();
-
-        jQuery('#formulaire-select').find('select').each( function(i){
-            let id = jQuery(this).attr('id');
-            if (typeof id !== 'undefined'){
-                let val = jQuery(this).val();
-                if (val !== 'defaut')
-                {
-                    formData.append('select-'+id, jQuery(this).val());
-                }
-            }
-        });
-        
-        // formData.append(idUtilisateur, ); // A FAIRE
-        formData.append('action', 'pl-second');
-        formData.append('security', PLscript.security);
-
         jQuery("#loading").show();
+        jQuery("#loading").hide();
 
-        jQuery.ajax({
-            url: PLscript.ajax_url,
-            xhrFields: {
-                withCredentials: true
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-            type: 'post',
-            success: function(rs, textStatus, jqXHR) {
-                jQuery("#loading").hide();
-                window.location.replace("choix-voyage");
-                return false;                
-            }
-        })
+        window.location.replace("choix-voyage");
 
     });
 

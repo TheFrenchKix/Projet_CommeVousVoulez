@@ -10,13 +10,12 @@ class pl_crud_index {
         $lastid = $wpdb->insert_id;
         
         return $lastid;
-
     }
 
     public function ajout_v2($refId, $key_of_value, $key_value){
         global $wpdb;
         $table_name_sub_newsletter = $wpdb->prefix . PL_BASENAME . '_users_data';
-
+        
         $wpdb->insert(
             $table_name_sub_newsletter,
             array(
@@ -24,8 +23,8 @@ class pl_crud_index {
                 'cle' => $key_of_value,
                 'valeur' => $key_value,
                 'index' => NULL,
-            )
-        );
+                )
+            );            
 
         return true;
     }

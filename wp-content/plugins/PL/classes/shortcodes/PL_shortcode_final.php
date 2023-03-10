@@ -7,7 +7,17 @@ class PL_shortcode_final {
     static function display($atts) {
 
         global $wpdb;
+        
+        if (!$_GET['id']){
 
+            header('Location: choix-voyage');
+            
+        }else{
+            
+            $userid = $_GET['id'];
+
+        }
+        
         $db_pays = $wpdb->prefix . PL_BASENAME . '_pays';
         $db_users_datas = $wpdb->prefix . PL_BASENAME . '_users_data';
         $db_voeux = $wpdb->prefix . PL_BASENAME . '_users_pays';
@@ -19,13 +29,10 @@ class PL_shortcode_final {
         (SELECT C.`nom` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'nompays',
         (SELECT C.`note` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'notepays'
         FROM `$db_voeux` A
-        WHERE A.`iduser`=5";
+        WHERE A.`iduser`=$userid";
 
         $result = $wpdb->get_results($sql, 'ARRAY_A');
-
-        // var_dump($result);
-        // die;
-
+    
         $allChoix = "";
         $nom = "";
         

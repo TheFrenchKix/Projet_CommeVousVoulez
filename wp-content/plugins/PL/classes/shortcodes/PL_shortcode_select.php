@@ -8,6 +8,16 @@ class PL_shortcode_select {
 
         global $wpdb;
 
+        if (!$_GET['id']){
+
+            header('Location: choix-voyage');
+            
+        }else{
+            
+            $userid = $_GET['id'];
+
+        }
+
         $db = $wpdb->prefix . PL_BASENAME . '_pays';
 
         $sql_data = "SELECT id, nom FROM `$db` WHERE isactive = 1;";
@@ -26,7 +36,7 @@ class PL_shortcode_select {
 
         $html .= "<form id=\"formulaire-select\" method=\"POST\">
             <fieldset>
-                <legend> "._e('Your coords')." </legend>
+                    <h3>Liste des pays</h3>
                     <select id=\"1\" style=\"display: block\" required>
                         <option value='defaut'>--- SELECT ---</option>
                         ". $allCountries ."

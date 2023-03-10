@@ -24,12 +24,11 @@ class pl_front_action_index {
 
         foreach($_REQUEST as $key => $value){
             if(!in_array($key,['security','action'])){
-                var_dump($value);
                 $crud->ajout_v2($refid,$key,$value);
             }
         }
 
-        print $lastid;
+        print $refid;
         exit;
     }
 
@@ -37,18 +36,20 @@ class pl_front_action_index {
 
         check_ajax_referer('ajax_nonce_security', 'security');
 
+        global $wpdb;
+
         if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
             exit;
         }
 
         $crud = new pl_crud_index();
+        $userid = $_REQUEST['id'];
         
         foreach($_REQUEST as $key => $value){
 
             if(!in_array($key,['security','action'])){
 
-                var_dump($value);
-                $crud->ajoutChoix(5,$value); // A FAIRE, CHANGE LE 5 PAR L'ID DE UTILISATEUR CONNECTE
+                $crud->ajoutChoix($userid,$value);
 
             }
         }
