@@ -35,6 +35,8 @@ class PL_Front{
 
     public function addjs(){
 
+        wp_enqueue_style('front-style', plugins_url(PL_PLUGIN_NAME).'/assets/css/PL_Front.css');
+
         wp_register_script('PL', plugins_url(PL_PLUGIN_NAME .'/assets/js/PL_Front.js'), array('jquery-new'), PL_VERSION, true);
         wp_enqueue_script('PL');
         

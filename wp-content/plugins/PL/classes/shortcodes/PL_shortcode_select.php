@@ -47,8 +47,8 @@ class PL_shortcode_select {
                         <option value='defaut'>--- SELECT ---</option>
                         ". $allCountries ."
                     </select>
+                    <button id=\"submit\" type=\"submit\" class=\"btnSub\">Submit</button>
                 </fieldset>
-            <button id=\"submit\" type=\"submit\">Submit</button>
         </form>";
 
         return $html;

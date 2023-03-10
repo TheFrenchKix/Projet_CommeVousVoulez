@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-display: block;
+    font-weight: 400;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.ttf") format("truetype"); }
+
+.btnSub{
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    padding: 0 16px;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    border: 1px solid #376a99;
+    color: #4a657c;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.btnSub:hover {
+    border: 2px solid #3cff00;
+} 

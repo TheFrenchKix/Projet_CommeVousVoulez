@@ -15,6 +15,7 @@ class PL_shortcode_final {
         $sql =
         "SELECT A.*, 
         (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='nom' LIMIT 1) AS 'nom',
+        (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='sexe' LIMIT 1) AS 'sexe',
         (SELECT C.`nom` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'nompays',
         (SELECT C.`note` FROM `$db_pays` C WHERE C.`id`=A.`idpays` LIMIT 1) AS 'notepays'
         FROM `$db_voeux` A
@@ -25,12 +26,37 @@ class PL_shortcode_final {
         // var_dump($result);
         // die;
 
-        $allNotes = "";
+        $allChoix = "";
+        $nom = "";
         
         foreach ($result as $valeur) {
 
-            $allNotes .= "<li value=" . $valeur['nompays'] . ">" . $valeur['nompays'] . " | Note : ". $valeur['notepays'] ."</li>";
-            $nom = $valeur['nom'];
+            $notes = "";
+            $restenote = 5 - intval($valeur['notepays'],10);
+            $nom = "";
+
+            for ($i = 0;$i<=$valeur['notepays'];$i++){
+
+                $notes .= "<i class='fa-sharp fa-solid fa-star'></i>";
+
+            }
+
+            if ($restenote > 0){
+
+                for ($i = 1;$i<$restenote;$i++){
+
+                    $notes .= "<i class='fa-sharp fa-regular fa-star'></i>";
+    
+                }
+
+            }
+
+            $allChoix .= "<tr><td value=" . $valeur['nompays'] . ">" . $notes . " <th>". $valeur['nompays'] ."</th></td></tr>";
+
+            $Helper = new PL_Helper_Index();
+            $valeur['sexe'] = $Helper->SexeToGender($valeur['sexe']);
+
+            $nom .= $valeur['sexe'] . " " . $valeur['nom'];
         
         }
 
@@ -38,12 +64,13 @@ class PL_shortcode_final {
 
         $html .= "<form id=\"formulaire-final\" method=\"POST\">
             <fieldset>
-                    <h3>Vos choix, ". $nom ."</h3>
-                    <ul>
-                        ". $allNotes ."
-                    </ul>
+                    <h1>". $nom ."</h1>
+                    <table>
+                        <tr><h2>Liste de vos choix</h2></tr>
+                        ". $allChoix . "
+                    </table>
+                    <button id=\"submit\" type=\"submit\" class=\"btnSub\">Oui, je valide mes choix</button>
                 </fieldset>
-            <button id=\"submit\" type=\"submit\">Submit</button>
         </form>";
 
         return $html;

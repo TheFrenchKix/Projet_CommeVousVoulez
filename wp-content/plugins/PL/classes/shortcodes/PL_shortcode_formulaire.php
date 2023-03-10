@@ -18,8 +18,8 @@ class PL_shortcode_formulaire {
                         <option value=\"F\">F</option>
                     </select>
                     <input type=\"date\" id=\"dateNaiss\" name=\"dateNaiss\" placeholder=\"Date de Naissance\" required>
+                    <button id=\"submit\" type=\"submit\" class=\"btnSub\">Submit</button>
                 </fieldset>
-            <button id=\"submit\" type=\"submit\">Submit</button>
         </form>
         ";
     }

@@ -72,7 +72,7 @@ jQuery( document ).ready(function() {
             type: 'post',
             success: function(rs, textStatus, jqXHR) {
                 jQuery("#loading").hide();
-                // window.location.replace("choix-voyage-step-final");
+                window.location.replace("choix-voyage-step-final");
                 return false;                
             }
         })
@@ -83,7 +83,7 @@ jQuery( document ).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         
-        let formData = new FormData();
+        let formData = new FormData(); 
 
         let id = jQuery(this).attr('id');
         formData.append('id', id);
@@ -100,7 +100,7 @@ jQuery( document ).ready(function() {
             for(var i=1; i<=5; i++){
                 if (i != id)
                 {
-                    jQuery("#"+i+" option[value="+val+"]").remove();
+                    jQuery("#"+ i +" option[value="+ val +"]").remove();
                 }
             }
 
@@ -114,6 +114,48 @@ jQuery( document ).ready(function() {
             }
 
         }
+
+    });
+
+    jQuery('#formulaire-final').on('submit', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        let formData = new FormData();
+
+        jQuery('#formulaire-select').find('select').each( function(i){
+            let id = jQuery(this).attr('id');
+            if (typeof id !== 'undefined'){
+                let val = jQuery(this).val();
+                if (val !== 'defaut')
+                {
+                    formData.append('select-'+id, jQuery(this).val());
+                }
+            }
+        });
+        
+        // formData.append(idUtilisateur, ); // A FAIRE
+        formData.append('action', 'pl-second');
+        formData.append('security', PLscript.security);
+
+        jQuery("#loading").show();
+
+        jQuery.ajax({
+            url: PLscript.ajax_url,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+            success: function(rs, textStatus, jqXHR) {
+                jQuery("#loading").hide();
+                window.location.replace("choix-voyage");
+                return false;                
+            }
+        })
 
     });
 
