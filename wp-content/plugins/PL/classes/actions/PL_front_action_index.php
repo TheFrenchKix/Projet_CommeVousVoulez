@@ -4,6 +4,9 @@ add_action('wp_ajax_pl', array('pl_front_action_index', 'SubmitFirstStep'));
 add_action('wp_ajax_nopriv_pl', array('pl_front_action_index', 'SubmitFirstStep'));
 add_action('wp_ajax_pl-second', array('pl_front_action_index', 'SubmitSecondStep'));
 add_action('wp_ajax_nopriv_pl-second', array('pl_front_action_index', 'SubmitSecondStep'));
+add_action('wp_ajax_pl-json', array('pl_front_action_index', 'GetJSON'));
+add_action('wp_ajax_nopriv_pl-json', array('pl_front_action_index', 'GetJSON'));
+
 
 class pl_front_action_index {
 
@@ -54,6 +57,34 @@ class pl_front_action_index {
             }
         }
 
+        exit;
+    }
+
+    public static function GetJSON(){
+        
+        global $wpdb;
+
+        $userid = $_REQUEST['id'];
+        
+        $db_pays = $wpdb->prefix . PL_BASENAME . '_pays';
+        $db_users_datas = $wpdb->prefix . PL_BASENAME . '_users_data';
+        $db_voeux = $wpdb->prefix . PL_BASENAME . '_users_pays';
+    
+        $sql =
+        "SELECT
+        (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='nom' LIMIT 1) AS 'nom',
+        (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='prenom' LIMIT 1) AS 'prenom',
+        (SELECT B.`valeur` FROM `$db_users_datas` B WHERE B.`id`=A.`iduser` AND B.`cle`='sexe' LIMIT 1) AS 'sexe'
+        FROM `$db_voeux` A
+        WHERE A.`iduser`=$userid
+        LIMIT 1";
+
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
+
+        $Helper = new PL_Helper_Index();
+        $result[0]['sexe'] = $Helper->SexeToGender($result[0]['sexe']);
+
+        print json_encode($result);
         exit;
     }
 

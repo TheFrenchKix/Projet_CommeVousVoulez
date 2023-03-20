@@ -123,18 +123,72 @@ jQuery( document ).ready(function() {
 
     });
 
-    jQuery('#formulaire-final').on('submit', function(e) {
+    // jQuery('#formulaire-final').on('submit', function(e) {
         
-        e.stopPropagation();
-        e.preventDefault();
+    //     e.stopPropagation();
+    //     e.preventDefault();
 
-        jQuery("#loading").show();
-        jQuery("#loading").hide();
+    //     jQuery("#loading").show();
+    //     jQuery("#loading").hide();
+
+    //     var userid = window.location.href.slice(window.location.href.indexOf('=')).split('=');
+
+    //     window.location.replace("choix-voyage?id="+userid[1]);
+
+    // });
+
+    const strUrl = window.location.pathname;
+
+    if(strUrl.includes('choix-voyage-step-final'))
+    {
 
         var userid = window.location.href.slice(window.location.href.indexOf('=')).split('=');
 
-        window.location.replace("choix-voyage?id="+userid[1]);
+        let formData = new FormData();
+        formData.append('id',userid[1]);
+        formData.append('action', 'pl-json');
+        formData.append('security', PLscript.security);
 
-    });
+        jQuery.ajax({
+            url: PLscript.ajax_url,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+            success: function(rs) {
+
+                formData.append('json',rs);
+
+                let hbs = jQuery('#Script_Modal').attr('src');
+
+                jQuery.ajax({
+                    dataType: "html",
+                    url: hbs,
+                    success: function(source) {
+
+                        var modal = Handlebars.compile(source);
+                        jQuery("#Modal-final").html(modal(JSON.parse(rs)));
+
+                        jQuery('#btnModal').on('click', function(e){
+                            e.stopPropagation();
+                            e.preventDefault();
+
+                            document.getElementById('Modal-final').style.display = "block";
+                        });
+            
+                        jQuery('.btnSub').on('click', function(e){
+                            window.sessionStorage.setItem('JSON', rs);
+                            window.location.replace("choix-voyage?id="+userid[1]);
+                        });
+
+                    }
+                })               
+            }
+        })
+    }
 
 });

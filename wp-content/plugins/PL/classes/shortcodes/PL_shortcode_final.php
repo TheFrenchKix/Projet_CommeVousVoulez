@@ -69,15 +69,20 @@ class PL_shortcode_final {
 
         $html = "";
 
-        $html .= "<form id=\"formulaire-final\" method=\"POST\">
+        $html .= "<script src=\"https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js\"></script>
+        <script id=\"Script_Modal\" type=\"text/x-handlebars-template\" src=\"".plugins_url(PL_PLUGIN_NAME."/assets/handlebar/modalbox.hbs")."\"></script>
+        <form id=\"formulaire-final\" method=\"POST\">
+            <body>
             <fieldset>
-                    <h1>". $nom ."</h1>
-                    <table>
-                        <tr><h2>Liste de vos choix</h2></tr>
-                        ". $allChoix . "
-                    </table>
-                    <button id=\"submit\" type=\"submit\" class=\"btnSub\">Oui, je valide mes choix</button>
-                </fieldset>
+                <h1>". $nom ."</h1>
+                <table>
+                    <tr><h2>Liste de vos choix</h2></tr>
+                    ". $allChoix . "
+                </table>
+                <input id=\"btnModal\" type=\"button\" value=\"Oui, je valide mes choix\" class=\"btnModal\"></input>
+            </fieldset>
+            <div id='Modal-final'></div>
+            </body>
         </form>";
 
         return $html;

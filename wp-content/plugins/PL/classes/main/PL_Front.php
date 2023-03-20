@@ -41,6 +41,8 @@ class PL_Front{
         wp_enqueue_script('PL');
         wp_register_script('PL-Handlebars', plugins_url(PL_PLUGIN_NAME .'/assets/js/handlebars-v4.7.7.js'), array('jquery-new'), PL_VERSION, true);
         wp_enqueue_script('PL-Handlebars');
+        // wp_register_script('PL-Modalbox', plugins_url(PL_PLUGIN_NAME .'/assets/js/modalbox.js'), array('jquery-new'), PL_VERSION, true);
+        // wp_enqueue_script('PL-Modalbox');
         wp_register_script('PL-Map', plugins_url(PL_PLUGIN_NAME .'/assets/js/map.js'), array('jquery-new'), PL_VERSION, true);
         wp_enqueue_script('PL-Map');
         
